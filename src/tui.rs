@@ -726,8 +726,8 @@ impl App {
                         )),
                         buy_line,
                         Line::from(format!(
-                            "Sell: {} coins",
-                            listing.sell_price
+                            "Sell: {} coins ({} profit)",
+                            listing.sell_price, listing.sell_price - listing.buy_price
                         )),
                         Line::from(format!("Grow: {}", grow_time)),
                         Line::from(format!("({} {})", trend, pct)),
