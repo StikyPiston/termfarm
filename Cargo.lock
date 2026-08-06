@@ -1601,7 +1601,7 @@ dependencies = [
 
 [[package]]
 name = "termfarm"
-version = "2.1.4"
+version = "2.1.5"
 dependencies = [
  "clap",
  "colorize",
