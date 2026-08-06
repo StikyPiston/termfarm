@@ -810,11 +810,9 @@ impl App {
                             KeyCode::Enter => {
                                 if let Some(index) =
                                     self.plant_list_state.selected()
-                                {
-                                    if index < owned_seed_count {
+                                    && index < owned_seed_count {
                                         self.plant_owned_seed();
                                     }
-                                }
                             }
 
                             _ => {}
