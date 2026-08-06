@@ -29,7 +29,9 @@ pub fn compute_stats(farm: &FarmState) -> FarmStats {
         };
         let crop = &registry[crop_id];
 
-        if planted_at.elapsed().map(|d| d.as_secs_f64()).unwrap_or(0.0) >= crop.grow_time as f64 {
+        if planted_at.elapsed().map(|d| d.as_secs_f64()).unwrap_or(0.0)
+            >= crop.grow_time as f64
+        {
             ready += 1
         } else {
             growing += 1
@@ -52,7 +54,9 @@ pub fn compute_stats(farm: &FarmState) -> FarmStats {
         if farm.market.price_modifiers.is_empty() {
             return 0.0;
         }
-        values.clone().fold(0.0, |f, &x| f + x) / (values.clone().count() as f64) - 1.0
+        values.clone().fold(0.0, |f, &x| f + x)
+            / (values.clone().count() as f64)
+            - 1.0
     }
 
     let rotation_interval: f64 = (4 * 60 * 60) as f64;

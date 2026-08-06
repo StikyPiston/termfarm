@@ -61,7 +61,8 @@ pub fn harvest(interactive: bool) -> String {
                 } else {
                     let mut content = String::new();
                     for (crop, amount) in harvested {
-                        content.push_str(format!("+ {amount} {crop}\n").as_str());
+                        content
+                            .push_str(format!("+ {amount} {crop}\n").as_str());
                     }
                     content
                 }

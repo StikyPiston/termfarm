@@ -19,8 +19,9 @@ pub fn stats() {
 
     let trend_pct = format!("{:.1}%", stats.market_trend * 100.0);
     let total_planted = stats.ready_to_harvest + stats.growing_crops;
-    let next_rotation =
-        format_duration(Duration::from_secs(stats.next_market_rotation_in.as_secs()));
+    let next_rotation = format_duration(Duration::from_secs(
+        stats.next_market_rotation_in.as_secs(),
+    ));
 
     let ready = format!(
         " {}/{}/{} ready",
@@ -40,7 +41,8 @@ pub fn stats() {
         _ => format!(" {} coins in wallet ", stats.coins).yellow(),
     };
     let trend = format!("{trend_icon} {trend_pct}").red();
-    let rotate = format!("  {next_rotation} until next market rotation").magenta();
+    let rotate =
+        format!("  {next_rotation} until next market rotation").magenta();
 
     println!("{ready} | {inventory_crops} | {inventory_seeds} | {wallet} | {trend} | {rotate}")
 }

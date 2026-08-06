@@ -19,7 +19,8 @@ pub fn view() {
                 Some(at) => {
                     let crop = &registry[&crop_id];
                     let elapsed = at.elapsed().unwrap();
-                    let remaining = crop.grow_time as i64 - elapsed.as_secs() as i64;
+                    let remaining =
+                        crop.grow_time as i64 - elapsed.as_secs() as i64;
 
                     if remaining <= 0 {
                         println!(
@@ -33,7 +34,9 @@ pub fn view() {
                             "[{plot_number}] {} {} {} left",
                             crop.icon,
                             crop.id,
-                            format_duration(Duration::from_secs(remaining as u64))
+                            format_duration(Duration::from_secs(
+                                remaining as u64
+                            ))
                         )
                     }
                 }

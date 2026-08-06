@@ -30,7 +30,10 @@ pub fn buy(seed_id: String, amount: u16, interactive: bool) -> String {
         match interactive {
             true => {
                 println!("Not enough coins.");
-                println!("> You need {total_price}, but only have {}", farm.coins);
+                println!(
+                    "> You need {total_price}, but only have {}",
+                    farm.coins
+                );
                 exit(1);
             }
             false => {

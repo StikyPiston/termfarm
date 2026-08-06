@@ -23,7 +23,9 @@ pub fn market() {
     println!(" Balance: {}", farm.coins);
     println!(
         "󰑓 Rotates In: {}",
-        format_duration(Duration::from_secs(stats.next_market_rotation_in.as_secs()))
+        format_duration(Duration::from_secs(
+            stats.next_market_rotation_in.as_secs()
+        ))
     );
     println!("-------------");
     println!();

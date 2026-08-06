@@ -18,7 +18,6 @@ use crate::{
 };
 use humantime::format_duration;
 use ratatui::{
-    DefaultTerminal, Frame,
     crossterm::event::{self, Event, KeyCode, KeyEventKind},
     layout::{Constraint, Direction, Layout},
     prelude::Stylize,
@@ -28,6 +27,7 @@ use ratatui::{
         Block, BorderType, Borders, Clear, List, ListItem, ListState,
         Paragraph, Wrap,
     },
+    DefaultTerminal, Frame,
 };
 use ratatui_notifications::{Level, Notification, Notifications};
 use uuid::Uuid;
@@ -727,7 +727,8 @@ impl App {
                         buy_line,
                         Line::from(format!(
                             "Sell: {} coins ({} profit)",
-                            listing.sell_price, listing.sell_price - listing.buy_price
+                            listing.sell_price,
+                            listing.sell_price - listing.buy_price
                         )),
                         Line::from(format!("Grow: {}", grow_time)),
                         Line::from(format!("({} {})", trend, pct)),

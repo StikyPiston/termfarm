@@ -5,7 +5,11 @@ use crate::{
     persistence::{load_farm, save_farm},
 };
 
-pub fn sell_crop(crop_id: String, mut amount: u16, interactive: bool) -> String {
+pub fn sell_crop(
+    crop_id: String,
+    mut amount: u16,
+    interactive: bool,
+) -> String {
     let mut farm = load_farm();
 
     let crops = farm.inventory.crops.get_or_insert_with(HashMap::new);
@@ -29,7 +33,9 @@ pub fn sell_crop(crop_id: String, mut amount: u16, interactive: bool) -> String 
     match save_farm(&farm) {
         true => match interactive {
             true => {
-                println!("Sold {amount}x {crop_id} for {total} coins ({price} each)");
+                println!(
+                    "Sold {amount}x {crop_id} for {total} coins ({price} each)"
+                );
                 "".to_string()
             }
             false => {
