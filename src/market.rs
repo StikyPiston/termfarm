@@ -1,5 +1,6 @@
 use crate::crops::crop_registry;
 use crate::models::{FarmState, MarketState};
+use crate::persistence::save_farm;
 use rand::seq::SliceRandom;
 use rand::RngExt;
 use std::collections::HashMap;
@@ -50,6 +51,7 @@ pub fn update_market_if_needed(farm: &mut FarmState) {
     };
 
     farm.market = generate_market();
+    let _ = save_farm(farm);
 }
 
 pub struct MarketListing {
