@@ -8,7 +8,7 @@ use crate::{
     buy_cmd::buy,
     crops::crop_registry,
     harvest_cmd,
-    market::market_listing,
+    market::{generate_market, market_listing},
     models::{FarmState, Plot},
     persistence::{self, save_farm},
     plant_cmd::plant,
@@ -284,6 +284,7 @@ impl App {
                 Constraint::Fill(1),
                 Constraint::Fill(1),
                 Constraint::Fill(1),
+                Constraint::Length(3),
             ])
             .split(master_layout[1]);
 
@@ -629,7 +630,7 @@ impl App {
                             .title_top(" termfarm ")
                             .title_bottom(
                                 Line::from(
-                                    " Buy seed <1/2/3>,".to_string()
+                                    " Buy seed <1/2/3>, Rotate Now <r>,".to_string()
                                         + NAVIGATION_TEXT,
                                 )
                                 .right_aligned(),
@@ -744,6 +745,18 @@ impl App {
                         market_main_layout[i + 3],
                     );
                 }
+                frame.render_widget(
+                    Paragraph::new(
+                        " Rotate now for 350 coins <r>".red(),
+                    )
+                    .block(
+                        Block::new()
+                            .borders(Borders::ALL)
+                            .border_style(Style::default().fg(Color::Red))
+                            .border_type(BorderType::Double),
+                    ),
+                    market_main_layout[6],
+                );
             }
         }
 
@@ -915,6 +928,25 @@ impl App {
                                 .build()
                                 .unwrap();
                             self.notifications.add(notif).unwrap();
+                        }
+                        KeyCode::Char('r') if self.active_tab == Tabs::Market => {
+                            if self.farm.coins >= 350 {
+                                self.farm.market = generate_market();
+                                match save_farm(&self.farm) {
+                                    true => (),
+                                    false => {
+                                        usefulog::err("Failed to save farm");
+                                        exit(1);
+                                    }
+                                }
+                            } else {
+                                let notif = Notification::new("Not enough coins to rotate the market")
+                                    .title(" Not enough coins")
+                                    .level(Level::Warn)
+                                    .build()
+                                    .unwrap();
+                                self.notifications.add(notif).unwrap();
+                            }
                         }
                         KeyCode::Char('n')
                             if self.active_tab == Tabs::Farm
