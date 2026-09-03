@@ -44,5 +44,7 @@ pub fn stats() {
     let rotate =
         format!("  {next_rotation} until next market rotation").magenta();
 
-    println!("{ready} | {inventory_crops} | {inventory_seeds} | {wallet} | {trend} | {rotate}")
+    println!(
+        "{ready} | {inventory_crops} | {inventory_seeds} | {wallet} | {trend} | {rotate}"
+    )
 }

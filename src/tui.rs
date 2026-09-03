@@ -18,6 +18,7 @@ use crate::{
 };
 use humantime::format_duration;
 use ratatui::{
+    DefaultTerminal, Frame,
     crossterm::event::{self, Event, KeyCode, KeyEventKind},
     layout::{Constraint, Direction, Layout},
     prelude::Stylize,
@@ -27,7 +28,6 @@ use ratatui::{
         Block, BorderType, Borders, Clear, List, ListItem, ListState,
         Paragraph, Wrap,
     },
-    DefaultTerminal, Frame,
 };
 use ratatui_notifications::{Level, Notification, Notifications};
 use uuid::Uuid;
@@ -630,7 +630,8 @@ impl App {
                             .title_top(" termfarm ")
                             .title_bottom(
                                 Line::from(
-                                    " Buy seed <1/2/3>, Rotate Now <r>,".to_string()
+                                    " Buy seed <1/2/3>, Rotate Now <r>,"
+                                        .to_string()
                                         + NAVIGATION_TEXT,
                                 )
                                 .right_aligned(),
@@ -746,15 +747,13 @@ impl App {
                     );
                 }
                 frame.render_widget(
-                    Paragraph::new(
-                        " Rotate now for 350 coins <r>".red(),
-                    )
-                    .block(
-                        Block::new()
-                            .borders(Borders::ALL)
-                            .border_style(Style::default().fg(Color::Red))
-                            .border_type(BorderType::Double),
-                    ),
+                    Paragraph::new(" Rotate now for 350 coins <r>".red())
+                        .block(
+                            Block::new()
+                                .borders(Borders::ALL)
+                                .border_style(Style::default().fg(Color::Red))
+                                .border_type(BorderType::Double),
+                        ),
                     market_main_layout[6],
                 );
             }
@@ -823,9 +822,10 @@ impl App {
                             KeyCode::Enter => {
                                 if let Some(index) =
                                     self.plant_list_state.selected()
-                                    && index < owned_seed_count {
-                                        self.plant_owned_seed();
-                                    }
+                                    && index < owned_seed_count
+                                {
+                                    self.plant_owned_seed();
+                                }
                             }
 
                             _ => {}
@@ -929,7 +929,9 @@ impl App {
                                 .unwrap();
                             self.notifications.add(notif).unwrap();
                         }
-                        KeyCode::Char('r') if self.active_tab == Tabs::Market => {
+                        KeyCode::Char('r')
+                            if self.active_tab == Tabs::Market =>
+                        {
                             if self.farm.coins >= 350 {
                                 self.farm.coins -= 350;
                                 self.farm.market = generate_market();
@@ -941,11 +943,13 @@ impl App {
                                     }
                                 }
                             } else {
-                                let notif = Notification::new("Not enough coins to rotate the market")
-                                    .title(" Not enough coins")
-                                    .level(Level::Warn)
-                                    .build()
-                                    .unwrap();
+                                let notif = Notification::new(
+                                    "Not enough coins to rotate the market",
+                                )
+                                .title(" Not enough coins")
+                                .level(Level::Warn)
+                                .build()
+                                .unwrap();
                                 self.notifications.add(notif).unwrap();
                             }
                         }

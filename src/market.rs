@@ -1,8 +1,8 @@
 use crate::crops::crop_registry;
 use crate::models::{FarmState, MarketState};
 use crate::persistence::save_farm;
-use rand::seq::SliceRandom;
 use rand::RngExt;
+use rand::seq::SliceRandom;
 use std::collections::HashMap;
 use std::ops::RangeInclusive;
 use std::time::SystemTime;
