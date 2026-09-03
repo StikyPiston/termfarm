@@ -931,6 +931,7 @@ impl App {
                         }
                         KeyCode::Char('r') if self.active_tab == Tabs::Market => {
                             if self.farm.coins >= 350 {
+                                self.farm.coins -= 350;
                                 self.farm.market = generate_market();
                                 match save_farm(&self.farm) {
                                     true => (),
